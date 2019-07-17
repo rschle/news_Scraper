@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
+const router = express.Router();
+var path = require("path");
 const axios = require("axios");
 const cheerio = require("cheerio");
 const exphbs = require("express-handlebars");
