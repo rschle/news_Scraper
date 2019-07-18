@@ -16,7 +16,6 @@ const NoteSchema = new Schema({
       ref: "Article"
   }
 });
-
 // This creates our model from the above schema, using mongoose's model method
 let Note = mongoose.model("Note", NoteSchema);
 

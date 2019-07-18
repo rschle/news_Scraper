@@ -4,18 +4,19 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 var router = express.Router();
 
-router.get('/favicon.ico', function(req, res) {
-    res.status(204)
-});
+// router.get('/favicon.ico', function(req, res) {
+//     res.status(204)
+// });
 
 router.get("/articles", function(req, res) {
     db.Article.find({})
     .then(function(results) {
-        if (results.length > 0) {
-            res.render("index", {articles: results});
-        } else {
-            res.render("index");
-        }
+        // if (results.length > 1) {
+        //     res.render("index", {articles: results});
+        // } else {
+        //     res.render("index");
+        // }
+        return res.render("index", {articles: results});
     }).catch(function(err) {
         console.log(err);
     })
@@ -41,21 +42,18 @@ router.get("/scrape", (req, res) => {
             })
             .catch((err) => {
                 console.log(err);
-                return res.redirect("/articles")
+                // return res.redirect("/articles")
             });
-
-
-            alert("Scrape Complete!");
-            // res.redirect("/")
+         
         })
-
+        res.redirect("/articles");
     })
 })
 
 router.get("/cleararticles", (req, res) => {
     db.Article.remove({}, function(data){
         console.log(data);
-        res.redirect("/articles");
+        return res.redirect("/articles");
     }).catch(function(err) {
         console.log(err);
         res.json({error: err.message});
