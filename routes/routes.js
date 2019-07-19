@@ -5,13 +5,13 @@ const cheerio = require("cheerio");
 var router = express.Router();
 
 
-router.get("/articles", function(req, res) {
+router.get("/articles", function (req, res) {
     db.Article.find({})
-    .then(function(results) {
-        return res.render("index", {articles: results});
-    }).catch(function(err) {
-        console.log(err);
-    })
+        .then(function (results) {
+            return res.render("index", { articles: results });
+        }).catch(function (err) {
+            console.log(err);
+        })
 })
 
 router.get("/articles/:id", (req, res) => {
@@ -20,7 +20,7 @@ router.get("/articles/:id", (req, res) => {
     // Finish the route so it finds one article using the req.params.id,
     db.Article.findOne({ _id: req.params.id })
     //we use findOne here because we are looking at an object and we want to find the specific one with the matching id without looping through all of the articles (since we did not use a for loop for the get route in the app side (thus no way to use the mongoose method of find here which would effectively loop through all of the articles))
-      // and run the populate method with "note",
+    // and run the populate method with "note",
     //   .populate("note")
     //   // ^ field in our article model that we are populating
     //   // then responds with the article with the note included
@@ -30,14 +30,26 @@ router.get("/articles/:id", (req, res) => {
     //   .catch((err) => {
     //     res.json(err);
     //   });
-  });
+});
 
-router.get("/save/:id", (req, res) =>{
+router.post("/save/:id", (req, res) => {
     console.log(req.params.id);
     db.Article
-    .findOneAndUpdate({ _id: req.params.id }, { $set: { saved: true } }, { new: true })
-    res.send("Saved")
+        .findOneAndUpdate({ _id: req.params.id }, { $set: { saved: true } }, { new: true })
+    res.send("Saved.")
 });
+
+router.get("/savedArticles", (req, res) => {
+    db.Article.find({ saved: true }).then(function (data) {
+        var hbsObj = {
+            article: data
+        }
+        res.render("saved", hbsObj);
+    })
+
+    // res.redirect("/savedArticles");
+})
+
 
 
 // router.post("/articles/:id", function(req, res) {
@@ -68,26 +80,26 @@ router.get("/scrape", (req, res) => {
                 .find("div.PromoMedium-title").children("a").attr("href");
 
             db.Article.create(result)
-            .then((dbArticle) => {
-                console.log(dbArticle);
-            })
-            .catch((err) => {
-                console.log(err);
-                // return res.redirect("/articles")
-            });
-         
+                .then((dbArticle) => {
+                    console.log(dbArticle);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    // return res.redirect("/articles")
+                });
+
         })
         res.redirect("/articles");
     })
 })
 
 router.get("/cleararticles", (req, res) => {
-    db.Article.remove({}, function(data){
+    db.Article.remove({}, function (data) {
         console.log(data);
         return res.redirect("/articles");
-    }).catch(function(err) {
+    }).catch(function (err) {
         console.log(err);
-        res.json({error: err.message});
+        res.json({ error: err.message });
     })
 });
 

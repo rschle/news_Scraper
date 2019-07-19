@@ -23,12 +23,21 @@ $("#scrapeNav").on("click", function() {
     });
 });
 
+$("#saveNav").on("click", function() {
+    $.ajax({
+        method: "GET",
+        url: "/savedArticles"
+    }).then(function() {
+        
+    })
+})
+
 $(".btn-success").on("click", function() {
     var id = $(this).attr("data-id")
     // console.log(id);
 
     $.ajax({
-        method: "GET",
+        method: "POST",
         url: "/save/" + id
     }).then(function (data) {
         // console.log(data)
