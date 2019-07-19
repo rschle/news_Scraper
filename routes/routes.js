@@ -5,6 +5,10 @@ const cheerio = require("cheerio");
 var router = express.Router();
 
 
+router.get("/", function(req, res) {
+    res.redirect("/articles");
+})
+
 router.get("/articles", function (req, res) {
     db.Article.find({})
         .then(function (results) {
