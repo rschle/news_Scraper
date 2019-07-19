@@ -35,7 +35,7 @@ router.get("/articles/:id", (req, res) => {
 router.get("/save/:id", (req, res) =>{
     console.log(req.params.id);
     db.Article
-    .findOneUpdate({ _id: req.params.id }, { $set: { saved: true } }, { new: true })
+    .findOneAndUpdate({ _id: req.params.id }, { $set: { saved: true } }, { new: true })
     res.send("Saved")
 });
 
