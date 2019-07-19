@@ -39,10 +39,11 @@ router.post("/save/:id", (req, res) => {
     res.send("Saved.")
 });
 
+
 router.get("/savedArticles", (req, res) => {
     db.Article.find({ saved: true }).then(function (data) {
         var hbsObj = {
-            article: data
+            articles: data
         }
         res.render("saved", hbsObj);
     })
