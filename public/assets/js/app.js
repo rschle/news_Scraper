@@ -23,6 +23,20 @@ $("#scrapeNav").on("click", function() {
     });
 });
 
+$(".btn-success").on("click", function() {
+    var id = $(this).attr("data-id")
+    // console.log(id);
+
+    $.ajax({
+        method: "GET",
+        url: "/save/" + id
+    }).then(function (data) {
+        // console.log(data)
+        // console.log(id);
+        alert("This article has been saved.")
+        // window.location.href("/save/" + id)
+    })
+})
 
 // // Whenever someone clicks a p tag
 // $(document).on("click", "p", function () {

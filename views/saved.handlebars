@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item" id="saveNav">
+                <a class="nav-link" href="/saved">Saved Articles<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/scrape" id="scrapeNav">Scrape Articles</a>
+            </li>
+            <li class="nav-item" id="clearNav">
+                <a class="nav-link" href="/cleararticles">Clear Articles</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="jumbotron text-center">
+    <div class="overlay">
+    </div>
+    <div class="background-image">
+        <h1 class="display-4">News-Scraper:</h1>
+        <img src="/assets/images/utLogo.png">
+    </div>
+    <div class="container-fluid article-container">
+        {{#if articles}}
+        {{#each articles}}
+        <div class="card">
+            <div class="card-header">
+                <h3>
+                    {{title}}
+                </h3>
+            </div>
+            <div class="card-body">
+                <a class="articleLink" target="_blank" href="{{link}}">{{link}}</a> <br>
+                <button type="button" class="btn btn-primary">Comments</button><button type="button" class="btn btn-danger">Delete From Saved</button>
+            </div>
+        </div>
+        {{/each}}
+        {{else}}
+        <div class="alert alert-warning text-center">
+            <h3>Welp. It looks like you don't have any articles yet.</h3>
+            <img src="https://media.tenor.com/images/a53bb7a342832389aca67c90a5cd6e1c/tenor.gif">
+        </div>
+        {{/if}}
+    </div>
+</div>
+</div>
+
+<script src="/assets/js/app.js"></script>
